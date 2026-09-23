@@ -1,9 +1,9 @@
 /* ========================================================================== */
-/* 1. CONFIGURACIÓN GLOBAL Y VARIABLES (Tema Oscuro y Claro)                  */
+/* 1. CONFIGURACIÓN GLOBAL Y VARIABLES (Tema Oscuro y Claro)                */
 /* ========================================================================== */
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 90px; /* Ajusta según la altura de tu header */
+    scroll-padding-top: 90px;
 }
 
 :root {
@@ -31,8 +31,6 @@ html {
     --stat-number-color: #ff5500;
     --stat-label-color: #94a3b8;
     --check-list-icon: #25eb46;
-    --btn-wa-bg-from: #25d366;
-    --btn-wa-bg-to: #128c7e;
 }
 
 [data-theme="light"] {
@@ -58,6 +56,10 @@ html {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
+html, body {
+    height: 100%;
+}
+
 body {
     background-color: var(--bg);
     background-image: var(--bg-image);
@@ -68,11 +70,18 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     width: 100%;
-    padding-top: 65px; /* <--- Esto es clave para que la barra fija no tape el inicio */
+    padding-top: 65px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-content, main, .services-section {
+    flex: 1;
 }
 
 /* ========================================================================== */
-/* 2. HEADER & NAVBAR (Barra Fija y Alineada Perfectamente)                   */
+/* 2. HEADER & NAVBAR                                                         */
 /* ========================================================================== */
 .header {
     position: fixed;
@@ -84,14 +93,14 @@ body {
     backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border);
     padding: 0.5rem 1.5rem;
-    box-sizing: border-box; /* Evita que el padding rompa el ancho total */
+    box-sizing: border-box;
 }
 
 .nav-container {
     max-width: 1280px;
-    margin: 0 auto;     /* Centra perfectamente el contenido en pantallas grandes */
+    margin: 0 auto;
     display: flex;
-    justify-content: space-between; /* Separa el logo a la izquierda y el menú a la derecha */
+    justify-content: space-between;
     align-items: center;
     width: 100%;
 }
@@ -135,9 +144,14 @@ body {
     text-decoration: none;
     font-weight: 600;
     font-size: 0.95rem;
+    transition: color 0.3s ease;
 }
 
-.theme-toggle, .mobile-toggle {
+.nav-links a:hover {
+    color: var(--nav-link-hover);
+}
+
+.theme-toggle {
     background: var(--surface-card);
     border: 1px solid var(--border);
     color: var(--text-main);
@@ -150,8 +164,13 @@ body {
     justify-content: center;
 }
 
+/* ELIMINACIÓN DEFINITIVA DEL MENÚ HAMBURGUESA */
+.mobile-toggle {
+    display: none !important;
+}
+
 /* ========================================================================== */
-/* 3. HERO SECTION (Sección Principal / Portada)                              */
+/* 3. HERO SECTION                                                            */
 /* ========================================================================== */
 .hero-banner {
     padding: 3rem 1.5rem 2rem 1.5rem;
@@ -167,7 +186,6 @@ body {
     align-items: center;
 }
 
-/* Badge de Guardia Activa con Radar */
 .badge-live {
     display: inline-flex;
     align-items: center;
@@ -217,7 +235,6 @@ body {
     margin-bottom: 1.2rem;
 }
 
-/* Imagen del Banner Principal */
 .hero-image-container {
     width: 100%;
     max-width: 100%;
@@ -236,13 +253,11 @@ body {
     display: block;
 }
 
-/* Botones de Acción del Hero */
 .hero-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
     margin-top: 20px;
-    margin-left: 0;
 }
 
 .hero-actions a {
@@ -257,23 +272,19 @@ body {
     text-decoration: none;
     color: #ffffff !important;
     min-width: 140px;
+    transition: transform 0.3s ease;
+    border: 2px solid transparent;
 }
 
 .btn-hero-call { background-color: #c91818 !important; }
 .btn-hero-wa { background-color: #25d366 !important; }
 
-.hero-actions .btn-hero {
-    transition: transform 0.3s ease, border-color 0.3s ease;
-    border: 2px solid transparent;
-}
-
-.hero-actions .btn-hero:hover {
+.hero-actions a:hover {
     transform: translateY(-3px);
 }
 
-
 /* ========================================================================== */
-/* 4. SECCIÓN SERVICIOS (Ajustado a 3 columnas estables)                     */
+/* 4. SECCIÓN SERVICIOS                                                       */
 /* ========================================================================== */
 .services-section {
     padding: 3rem 1.5rem;
@@ -294,7 +305,6 @@ body {
     margin-bottom: 15px; 
     position: relative;
     display: inline-block;
-    max-width: 100%;
 }
 
 .section-header h2::after {
@@ -309,15 +319,13 @@ body {
     border-radius: 2px;
 }
 
-.section-header p, 
-.section-header span, 
-.section-header div:not(h2) {
-    margin-top: 15px !important; 
+.section-header p {
+    margin-top: 15px !important;
 }
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Cambiado a 320px para asegurar diseño de 3 columnas */
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 24px;
     width: 100%;
 }
@@ -368,30 +376,35 @@ body {
     font-size: 0.95rem;
 }
 
-
 /* ========================================================================== */
 /* 5. ESTADÍSTICAS                                                            */
 /* ========================================================================== */
 .stats-horizontal-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-    width: 100%;
-    padding: 0 1.5rem;
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
     max-width: 1280px;
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 1.5rem;
+    width: 100%;
 }
 
-.stat-cloud {
+.stats-horizontal-container .stat-cloud {
+    flex: 1;
+    min-width: 220px;
+    max-width: 280px;
     background: var(--surface-card);
     border: 1px solid var(--border);
     border-radius: 20px;
-    padding: 10px;
+    padding: 15px;
     text-align: center;
     transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
-.stat-cloud:hover {
+.stats-horizontal-container .stat-cloud:hover {
     transform: translateY(-4px);
     border-color: #ff5500;
 }
@@ -406,30 +419,9 @@ body {
     font-size: 0.85rem;
     color: var(--stat-label-color);
 }
-/* ========================================================================== */
-/* TARJETAS DE ESTADÍSTICAS (< 30min, 100%, 24/7, Garantía)                   */
-/* ========================================================================== */
-.stats-horizontal-container {
-    margin-top: 3rem; 
-    display: flex;
-    justify-content: center;
-    gap: 15px;            /* Reducimos ligeramente el espacio entre ellas de 20px a 15px */
-    flex-wrap: wrap;
-    max-width: 1280px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Aseguramos que cada tarjeta individual tenga un ancho máximo que permita entrar las 4 */
-.stats-horizontal-container .stat-cloud, 
-.stats-horizontal-container > div {
-    flex: 1;
-    min-width: 220px;     /* Evita que se encojan demasiado en pantallas medianas */
-    max-width: 280px;     /* Limita el ancho máximo para que entren las 4 juntas */
-}
 
 /* ========================================================================== */
-/* 6. SECCIÓN EMPRESA / ¿POR QUÉ ELEGIRNOS?                                    */
+/* 6. SECCIÓN EMPRESA                                                         */
 /* ========================================================================== */
 .why-section {
     background: var(--surface);
@@ -474,30 +466,11 @@ body {
     display: block;
 }
 
-
 /* ========================================================================== */
-/* 7. FOOTER Y BOTONES FIJOS AL FINAL DE LA PÁGINA                          */
+/* 7. FOOTER Y BOTONES FLOTANTES                                              */
 /* ========================================================================== */
-
-/* Aseguramos que la estructura general permita posicionar el footer al final */
-html, body {
-    height: 100%;
-    margin: 0;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-/* El contenido principal empuja el footer hacia abajo */
-.main-content, main, .services-section {
-    flex: 1;
-}
-
 .footer {
-    position: relative; /* Contenedor de referencia para los botones */
+    position: relative;
     padding: 3rem 1.5rem;
     border-top: 1px solid var(--border);
     text-align: center;
@@ -506,24 +479,12 @@ body {
     width: 100%;
 }
 
-.footer-content {
-    max-width: 1280px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    width: 100%;
-}
-
-/* Botones estáticos abajo a la derecha, uno arriba del otro, dentro del footer */
 .floating-buttons-container {
     position: absolute; 
-    right: 30px;        /* Esquina derecha del footer */
-    bottom: 25px;       /* Esquina inferior del footer */
+    right: 30px;
+    bottom: 25px;
     display: flex;
-    flex-direction: column; /* Llamada arriba, WhatsApp abajo */
+    flex-direction: column;
     align-items: center;
     gap: 10px;
     z-index: 10;
@@ -552,20 +513,21 @@ body {
 .btn-float-call { background-color: #c91818; }
 .btn-float-wa { background-color: #25d366; }
 
-/* Ajuste para dispositivos móviles */
-@media (max-width: 768px) {
-    .footer {
-        padding-bottom: 6rem; /* Espacio extra para que los botones no pisen el texto en celulares */
-    }
-    .floating-buttons-container {
-        right: 20px;
-        bottom: 15px;
-    }
+.contacto-enlace {
+    color: #c6c5c5 !important;
+    font-weight: 400 !important;
+    text-decoration: none !important;
+    cursor: pointer !important; 
+    transition: color 0.3s ease;
 }
 
+.contacto-enlace:hover {
+    color: #0487e5cf !important;
+    text-decoration: underline !important;
+}
 
 /* ========================================================================== */
-/* 8. VENTANA MODAL DE CONTACTO (CSS PURO CON :TARGET)                        */
+/* 8. VENTANA MODAL                                                           */
 /* ========================================================================== */
 .modal-overlay {
     position: fixed;
@@ -655,9 +617,8 @@ body {
 .btn-modal.wpp { background-color: #22c55e; }
 .btn-modal.mail { background-color: #3b82f6; }
 
-
 /* ========================================================================== */
-/* MEDIA QUERIES (ADAPTACIÓN PARA CELULARES Y TABLETS)                        */
+/* MEDIA QUERIES (ADAPTACIÓN RESPONSIVE LIMPIA)                              */
 /* ========================================================================== */
 @media (max-width: 900px) {
     .hero-top-grid,
@@ -670,48 +631,15 @@ body {
         max-width: 100%;
         height: 260px;
     }
-
-    .nav-links {
-        display: none; 
-    }
-
-    .mobile-toggle {
-        display: flex;
-    }
 }
 
-@media (max-width: 600px) {
-    .hero-title {
-        font-size: 2rem;
-    }
-
-    .hero-banner, .services-section, .why-section {
-        padding: 2rem 1rem;
-    }
-} /* <--- ¡Aquí faltaba cerrar esta llave correctamente! */
-
-/* ========================================================================== */
-/* ESTILO GLOBAL PARA EL ENLACE DE DESARROLLADOR                             */
-/* ========================================================================== */
-.contacto-enlace {
-    color: #c6c5c5 !important; /* Aquí funcionará el selector de colores para cualquier tamaño de pantalla */
-    font-weight: 400 !important;
-    text-decoration: none !important;
-    cursor: pointer !important; 
-    transition: color 0.3s ease;
-}
-
-.contacto-enlace:hover {
-    color: #0487e5cf !important; /* <--- 2do color: El que aparece al pasar el cursor (aquí también te aparecerá su cuadradito) */
-    text-decoration: underline !important;
-}
 @media (max-width: 768px) {
     .header {
         padding: 0.5rem 1rem;
     }
 
     .nav-container {
-        flex-direction: column; /* Pone el logo arriba y los enlaces abajo de forma centrada */
+        flex-direction: column;
         gap: 8px;
         align-items: center;
     }
@@ -722,9 +650,10 @@ body {
         gap: 10px;
     }
 
+    /* Forzamos que las opciones del menú siempre estén visibles y organizadas */
     .nav-links {
-        display: flex !important; /* Fuerza a que siempre estén visibles */
-        flex-wrap: wrap;         /* Si no entran, bajan ordenados */
+        display: flex !important;
+        flex-wrap: wrap;
         justify-content: center;
         gap: 12px;
         padding: 0;
@@ -732,11 +661,25 @@ body {
     }
 
     .nav-links a {
-        font-size: 0.85rem;      /* Tamaño cómodo para celulares */
+        font-size: 0.85rem;
     }
 
-    /* Ocultamos el botón móvil por completo ya que no se usará */
-    .mobile-toggle {
-        display: none !important;
+    .footer {
+        padding-bottom: 6rem;
+    }
+
+    .floating-buttons-container {
+        right: 20px;
+        bottom: 15px;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-banner, .services-section, .why-section {
+        padding: 2rem 1rem;
     }
 }
